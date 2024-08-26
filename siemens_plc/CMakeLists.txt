@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(modbus_plc_siemens)
+project(siemens_plc)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -80,7 +80,7 @@ catkin_python_setup()
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES modbus_PLC_siemens
+#  LIBRARIES siemens_plc
 #  CATKIN_DEPENDS std_msgs
 #  DEPENDS system_lib
 )
@@ -97,19 +97,19 @@ include_directories(
 )
 
 ## Declare a cpp library
-# add_library(modbus_PLC_siemens
-#   src/${PROJECT_NAME}/modbus_PLC_siemens.cpp
+# add_library(siemens_plc
+#   src/${PROJECT_NAME}/siemens_plc.cpp
 # )
 
 ## Declare a cpp executable
-# add_executable(modbus_PLC_siemens_node src/modbus_PLC_siemens_node.cpp)
+# add_executable(siemens_plc_node src/siemens_plc_node.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(modbus_PLC_siemens_node modbus_PLC_siemens_generate_messages_cpp)
+# add_dependencies(siemens_plc_node siemens_plc_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(modbus_PLC_siemens_node
+# target_link_libraries(siemens_plc_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -128,7 +128,7 @@ include_directories(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS modbus_PLC_siemens modbus_PLC_siemens_node
+# install(TARGETS siemens_plc siemens_plc_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -153,7 +153,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_modbus_PLC_siemens.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_siemens_plc.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
