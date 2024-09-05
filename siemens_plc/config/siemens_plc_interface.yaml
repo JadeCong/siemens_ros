@@ -1,4 +1,4 @@
-siemens_plc_configurator:
+siemens_plc_interface:
   cmd1: None
   cmd2: None
   cmd3: None

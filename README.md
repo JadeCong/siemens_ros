@@ -13,4 +13,4 @@
 ## 3. Package siemens_plc
 
 > Function: Provide a communication interface between ROS node and siemens plc device.
-> Launch: roslaunch siemens_plc interface_plc.launch
+> Launch: roslaunch siemens_plc siemens_plc_interface.launch
