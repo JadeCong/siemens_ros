@@ -1,10 +1,13 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0.2)
 project(siemens_plc)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  dynamic_reconfigure
+  roscpp
+  rospy
   std_msgs
   modbus
 )
@@ -69,6 +72,29 @@ catkin_python_setup()
 #   std_msgs
 # )
 
+################################################
+## Declare ROS dynamic reconfigure parameters ##
+################################################
+
+## To declare and build dynamic reconfigure parameters within this
+## package, follow these steps:
+## * In the file package.xml:
+##   * add a build_depend and a exec_depend tag for "dynamic_reconfigure"
+## * In this file (CMakeLists.txt):
+##   * add "dynamic_reconfigure" to
+##     find_package(catkin REQUIRED COMPONENTS ...)
+##   * uncomment the "generate_dynamic_reconfigure_options" section below
+##     and list every .cfg file to be processed
+
+## Generate dynamic reconfigure parameters in the 'cfg' folder
+# generate_dynamic_reconfigure_options(
+#   cfg/DynReconf1.cfg
+#   cfg/DynReconf2.cfg
+# )
+generate_dynamic_reconfigure_options(
+    cfg/laser_config_param.cfg
+)
+
 ###################################
 ## catkin specific configuration ##
 ###################################
@@ -80,8 +106,13 @@ catkin_python_setup()
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES siemens_plc
-#  CATKIN_DEPENDS std_msgs
+  LIBRARIES siemens_plc
+  CATKIN_DEPENDS
+    dynamic_reconfigure
+    roscpp
+    rospy
+    std_msgs
+    modbus
 #  DEPENDS system_lib
 )
 
@@ -93,6 +124,7 @@ catkin_package(
 ## Your package locations should be listed before other locations
 # include_directories(include)
 include_directories(
+  # include
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -126,6 +158,10 @@ include_directories(
 #   scripts/my_python_script
 #   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
+install(
+  PROGRAMS srcipts/modbus_client_s7_1200.py srcipts/siemens_plc_interface.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 ## Mark executables and/or libraries for installation
 # install(TARGETS siemens_plc siemens_plc_node
@@ -140,6 +176,10 @@ include_directories(
 #   FILES_MATCHING PATTERN "*.h"
 #   PATTERN ".svn" EXCLUDE
 # )
+install(
+  DIRECTORY cfg
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 # install(FILES

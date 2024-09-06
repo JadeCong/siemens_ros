@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0.2)
 project(modbus)
 
 ## Find catkin macros and libraries
@@ -80,7 +80,7 @@ catkin_python_setup()
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES modbus
-#  CATKIN_DEPENDS std_msgs
+  CATKIN_DEPENDS std_msgs
 #  DEPENDS system_lib
 )
 
