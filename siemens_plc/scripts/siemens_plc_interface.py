@@ -15,7 +15,7 @@ from std_msgs.msg import Bool
 laser_config_1, laser_config_2, laser_config_3 = None, None, None
 
 
-def dynamic_reconfigure_hand_force_param_callback(config, level):
+def laser_config_param_callback(config, level):
     # declare the global variables
     global laser_config_1, laser_config_2, laser_config_3
     
@@ -50,7 +50,7 @@ def siemens_plc_interface_node():
     laser_switch_topic = rospy.get_param("/siemens/siemens_plc_interface/laser_switch_topic")
     
     # start the dynamic reconfigure parameter server
-    dynamic_reconfigure_parameter_server = Server(laser_config_paramConfig, dynamic_reconfigure_hand_force_param_callback)
+    dynamic_reconfigure_parameter_server = Server(laser_config_paramConfig, laser_config_param_callback)
     
     # setup modbus client for Siemens PLC
     plc_client = SiemensPlcClient(host, port, rate, reset_registers, sub_topic, pub_topic)
@@ -60,7 +60,7 @@ def siemens_plc_interface_node():
     
     # define the publisher for writing laser config parameters to modbus registers.
     pub_laser_config = rospy.Publisher(sub_topic, HoldingRegister,
-                                        queue_size=1,
+                                        queue_size=10,
                                         tcp_nodelay=True,
                                         latch=False)
     laser_config = HoldingRegister()
@@ -69,7 +69,7 @@ def siemens_plc_interface_node():
     sub_laser_switch = rospy.Subscriber(laser_switch_topic, Bool,
                                         callback=check_laser_switch_callback, 
                                         callback_args=[pub_laser_config, laser_config], 
-                                        queue_size=1, 
+                                        queue_size=10, 
                                         tcp_nodelay=True)
     
     # spin() simply keeps python from exiting until this node is stopped
