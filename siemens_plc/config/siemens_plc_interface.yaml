@@ -13,4 +13,4 @@ siemens_plc_interface:
   pub_topic: modbus_wrapper/input
   
   # Name of laser switch topic from master hfd.
-  laser_switch_topic: /hfd/master_hfd/laser_switch
+  topic_laser_switch: /hfd/master_hfd/laser_switch

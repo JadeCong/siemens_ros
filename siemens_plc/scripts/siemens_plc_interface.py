@@ -47,7 +47,7 @@ def siemens_plc_interface_node():
     reset_registers = rospy.get_param("/siemens/siemens_plc_interface/reset_registers")
     sub_topic = rospy.get_param("/siemens/siemens_plc_interface/sub_topic")
     pub_topic = rospy.get_param("/siemens/siemens_plc_interface/pub_topic")
-    laser_switch_topic = rospy.get_param("/siemens/siemens_plc_interface/laser_switch_topic")
+    topic_laser_switch = rospy.get_param("/siemens/siemens_plc_interface/topic_laser_switch")
     
     # start the dynamic reconfigure parameter server
     dynamic_reconfigure_parameter_server = Server(laser_config_paramConfig, laser_config_param_callback)
@@ -66,7 +66,7 @@ def siemens_plc_interface_node():
     laser_config = HoldingRegister()
     
     # define the subscriber for getting the status of laser switch
-    sub_laser_switch = rospy.Subscriber(laser_switch_topic, Bool,
+    sub_laser_switch = rospy.Subscriber(topic_laser_switch, Bool,
                                         callback=check_laser_switch_callback, 
                                         callback_args=[pub_laser_config, laser_config], 
                                         queue_size=1, 
