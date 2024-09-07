@@ -60,7 +60,7 @@ def siemens_plc_interface_node():
     
     # define the publisher for writing laser config parameters to modbus registers.
     pub_laser_config = rospy.Publisher(sub_topic, HoldingRegister,
-                                        queue_size=10,
+                                        queue_size=1,
                                         tcp_nodelay=True,
                                         latch=False)
     laser_config = HoldingRegister()
@@ -69,7 +69,7 @@ def siemens_plc_interface_node():
     sub_laser_switch = rospy.Subscriber(laser_switch_topic, Bool,
                                         callback=check_laser_switch_callback, 
                                         callback_args=[pub_laser_config, laser_config], 
-                                        queue_size=10, 
+                                        queue_size=1, 
                                         tcp_nodelay=True)
     
     # spin() simply keeps python from exiting until this node is stopped
