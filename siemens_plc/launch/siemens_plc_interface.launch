@@ -6,7 +6,7 @@
         
         <!-- Run master_slave_force_mapping node -->
         <rosparam command="load" file="$(find siemens_plc)/config/siemens_plc_interface.yaml" />
-        <node name="siemens_plc_interface" pkg="siemens_plc" type="siemens_plc_interface.py" output="screen" respawn="false" args="siemens_plc_interface" />
+        <node name="siemens_plc_interface" pkg="siemens_plc" type="siemens_plc_interface.py" output="screen" respawn="false" />
     </group>
     
 </launch>
