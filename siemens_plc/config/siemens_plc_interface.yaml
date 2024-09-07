@@ -1,6 +1,6 @@
 siemens_plc_interface:
   # Host of Siemens PLC server.
-  host: 192.168.0.1
+  host: 192.168.58.10
   # Port of Siemens PLC server.
   port: 8080
   # Rate of Siemens PLC server.
