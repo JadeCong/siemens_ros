@@ -72,6 +72,7 @@ def siemens_plc_interface_node():
                                         queue_size=1, 
                                         tcp_nodelay=True)
     
+    # TODO: Bugs: no rospy.spinOnce for controlling the frequency of receiving msgs from master_hfd to match PLC server rate, so set the quene_size of publisher/subscriber as 1 to discard the redundant msgs.
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()
     
