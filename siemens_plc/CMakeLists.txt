@@ -106,13 +106,13 @@ generate_dynamic_reconfigure_options(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-  LIBRARIES siemens_plc
-  CATKIN_DEPENDS
-    dynamic_reconfigure
-    roscpp
-    rospy
-    std_msgs
-    modbus
+#  LIBRARIES siemens_plc
+#  CATKIN_DEPENDS
+#    dynamic_reconfigure
+#    roscpp
+#    rospy
+#    std_msgs
+#    modbus
 #  DEPENDS system_lib
 )
 
