@@ -80,7 +80,7 @@ catkin_python_setup()
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES modbus
-  CATKIN_DEPENDS std_msgs
+#  CATKIN_DEPENDS std_msgs
 #  DEPENDS system_lib
 )
 

@@ -8,7 +8,7 @@ except Exception as e:
     exit()
 
 from std_msgs.msg import Int32MultiArray as HoldingRegister
-from post_threading import Post
+from .post_threading import Post
 from threading import Lock
 
 

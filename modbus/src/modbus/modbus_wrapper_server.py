@@ -1,6 +1,6 @@
 import rospy
 import time
-from post_threading import Post
+from .post_threading import Post
 from std_msgs.msg import Int32MultiArray as HoldingRegister
 
 try:
