@@ -159,7 +159,7 @@ include_directories(
 #   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
 install(
-  PROGRAMS scripts/modbus_client_s7_1200.py scripts/siemens_plc_interface.py
+  PROGRAMS scripts/siemens_plc_interface.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
