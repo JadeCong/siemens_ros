@@ -9,7 +9,6 @@ from siemens_plc.cfg import laser_config_paramConfig
 from siemens_plc.siemens_plc_client import SiemensPlcClient
 from std_msgs.msg import Int32MultiArray as HoldingRegister
 from hfd_msgs.msg import HFDCommand
-from std_msgs.msg import Bool
 
 
 # define the laser config parameters: laser_config_1, laser_config_2, laser_config_3
