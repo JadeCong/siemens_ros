@@ -12,6 +12,7 @@ from hfd_msgs.msg import HFDCommand
 
 
 # define the laser config parameters: laser_config_1, laser_config_2, laser_config_3
+# TODO: change laser config parameters in cfg file.
 laser_config_1, laser_config_2, laser_config_3 = None, None, None
 
 
@@ -28,6 +29,7 @@ def laser_config_param_callback(config, level):
 
 def check_laser_switch_callback(msg, args):
     # get the laser_switch msgs and make laser_config array
+    # TODO: change the laser config type based on your needs(int32 is now right).
     args[1].data = [laser_config_1, laser_config_2, laser_config_3, msg.laser_switch.data]
     
     # publish the laser config parameters
