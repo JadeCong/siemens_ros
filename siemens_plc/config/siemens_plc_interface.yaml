@@ -4,7 +4,7 @@ siemens_plc_interface:
   # Port of Siemens PLC server.
   port: 8080
   # Rate of Siemens PLC server.
-  rate: 50
+  rate: 50  # Hz
   # Whether reset the Siemens PLC client.
   reset_registers: True
   # Topic for subscriber of Siemens PLC server.
