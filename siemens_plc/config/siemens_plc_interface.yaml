@@ -4,12 +4,12 @@ siemens_plc_interface:
   # Port of Siemens PLC server.
   port: 8080
   # Rate of Siemens PLC server.
-  rate: 50  # Hz
+  rate: 100  # Hz
   # Whether reset the Siemens PLC client.
   reset_registers: True
-  # Topic for subscriber of Siemens PLC server.
+  # Topic for subscribing msgs from Siemens PLC server.
   sub_topic: modbus_wrapper/output
-  # Topic for publisher of Siemens PLC server.
+  # Topic for publishing msgs to Siemens PLC server.
   pub_topic: modbus_wrapper/input
   
   # Name of hfd command topic from master hfd.
