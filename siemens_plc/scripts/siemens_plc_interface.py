@@ -50,12 +50,12 @@ def siemens_plc_interface_node():
     rospy.init_node("siemens_plc_interface", anonymous=True)
     
     # get ros parameters from parameter server
-    host = rospy.get_param("plc_host")
-    port = rospy.get_param("plc_port")
-    rate = rospy.get_param("plc_rate")
-    reset_registers = rospy.get_param("reset_registers")
-    sub_topic = rospy.get_param("sub_topic")
-    pub_topic = rospy.get_param("pub_topic")
+    host = rospy.get_param("~host")
+    port = rospy.get_param("~port")
+    rate = rospy.get_param("~rate")
+    reset_registers = rospy.get_param("~reset_registers")
+    sub_topic = rospy.get_param("~sub_topic")
+    pub_topic = rospy.get_param("~pub_topic")
     
     # start the dynamic reconfigure parameter server
     dynamic_reconfigure_parameter_server = Server(laser_config_paramConfig, laser_config_param_callback)

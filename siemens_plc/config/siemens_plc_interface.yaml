@@ -1,10 +1,10 @@
 siemens_plc_interface:
   # Host of Siemens PLC server.
-  plc_host: 192.168.58.20
+  host: 192.168.58.20
   # Port of Siemens PLC server.
-  plc_port: 502
+  port: 502
   # Rate of Siemens PLC server.
-  plc_rate: 20  # Hz
+  rate: 20  # Hz
   # Whether reset the Siemens PLC client.
   reset_registers: True
   # Topic for subscribing msgs from Siemens PLC server.
