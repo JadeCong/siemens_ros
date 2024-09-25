@@ -1,16 +1,13 @@
 siemens_plc_interface:
   # Host of Siemens PLC server.
-  host: 192.168.58.10
+  host: 192.168.58.20
   # Port of Siemens PLC server.
-  port: 8080
+  port: 502
   # Rate of Siemens PLC server.
-  rate: 100  # Hz
+  rate: 20  # Hz
   # Whether reset the Siemens PLC client.
   reset_registers: True
   # Topic for subscribing msgs from Siemens PLC server.
   sub_topic: modbus_wrapper/output
   # Topic for publishing msgs to Siemens PLC server.
   pub_topic: modbus_wrapper/input
-  
-  # Name of hfd command topic from master hfd.
-  topic_hfd_command: /hfd/master_hfd/hfd_command

@@ -1,9 +1,6 @@
 <launch>
     
     <group ns="siemens">
-        <!-- Run rqt_reconfigure for laser config parameters -->
-        <node name="rqt_reconfigure" pkg="rqt_reconfigure" type="rqt_reconfigure" required="false" />
-        
         <!-- Run siemens_plc_interface node -->
         <rosparam command="load" file="$(find siemens_plc)/config/siemens_plc_interface.yaml" />
         <node name="siemens_plc_interface" pkg="siemens_plc" type="siemens_plc_interface.py" output="screen" respawn="false" />

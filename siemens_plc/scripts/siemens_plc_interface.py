@@ -11,33 +11,39 @@ from std_msgs.msg import Int32MultiArray as HoldingRegister
 from hfd_msgs.msg import HFDCommand
 
 
-# define the laser config parameters: laser_config_1, laser_config_2, laser_config_3
-# TODO: change laser config parameters in cfg file.
-laser_config_1, laser_config_2, laser_config_3 = None, None, None
+# define the laser config parameters
+ready_flag, powder_feed_start, blow_gas_start, emit_laser_start, laser_power, powder_feed_rate = None, None, None, None, None, None
 
 
 def laser_config_param_callback(config, level):
     # declare the global variables
-    global laser_config_1, laser_config_2, laser_config_3
+    global ready_flag, powder_feed_start, blow_gas_start, emit_laser_start, laser_power, powder_feed_rate
     
     # set the global variables for laser config
-    laser_config_1 = config.laser_config_1
-    laser_config_2 = config.laser_config_2
-    laser_config_3 = config.laser_config_3
+    ready_flag = config.ready_flag
+    powder_feed_start = config.powder_feed_start
+    blow_gas_start = config.blow_gas_start
+    emit_laser_start = config.emit_laser_start
+    laser_power = config.laser_power
+    powder_feed_rate = config.powder_feed_rate
     
     return config
 
-def check_laser_switch_callback(msg, args):
-    # get the laser_switch msgs and make laser_config array
-    # TODO: change the laser config type based on your needs(int32 is now right).
-    args[1].data = [np.int32(laser_config_1), np.int32(laser_config_2), np.int32(laser_config_3), np.int32(msg.laser_switch.data)]
+def laser_status_callback(msg, args):
+    # declare the global variables
+    global ready_flag, powder_feed_start, blow_gas_start, emit_laser_start, laser_power, powder_feed_rate
+    
+    # get the laser_status msgs and update the laser_config array
+    print(msg.data)
+    # rospy.loginfo(msg.data)
+    # args[1].data = [np.int32(ready_flag), np.int32(powder_feed_start), np.int32(blow_gas_start), np.int32(emit_laser_start), np.int32(laser_power), np.int32(powder_feed_rate)]
     
     # publish the laser config parameters
-    args[0].publish(args[1])
+    # args[0].publish(args[1])
 
 def siemens_plc_interface_node():
     # declare the global variables
-    global laser_config_1, laser_config_2, laser_config_3
+    global ready_flag, powder_feed_start, blow_gas_start, emit_laser_start, laser_power, powder_feed_rate
     
     # init ros node
     rospy.init_node("siemens_plc_interface", anonymous=True)
@@ -49,7 +55,6 @@ def siemens_plc_interface_node():
     reset_registers = rospy.get_param("/siemens/siemens_plc_interface/reset_registers")
     sub_topic = rospy.get_param("/siemens/siemens_plc_interface/sub_topic")
     pub_topic = rospy.get_param("/siemens/siemens_plc_interface/pub_topic")
-    topic_hfd_command = rospy.get_param("/siemens/siemens_plc_interface/topic_hfd_command")
     
     # start the dynamic reconfigure parameter server
     dynamic_reconfigure_parameter_server = Server(laser_config_paramConfig, laser_config_param_callback)
@@ -61,21 +66,21 @@ def siemens_plc_interface_node():
     plc_client.startListening()
     rospy.loginfo("Modbus listener started.")
     
-    # define the publisher for writing laser config parameters to modbus registers
+    # define the publisher for writing the laser config parameters to modbus registers
     pub_laser_config = rospy.Publisher(pub_topic, HoldingRegister,
                                         queue_size=1,
                                         tcp_nodelay=True,
                                         latch=False)
     laser_config = HoldingRegister()
     
-    # define the subscriber for getting the status of laser switch
-    sub_laser_switch = rospy.Subscriber(topic_hfd_command, HFDCommand,
-                                        callback=check_laser_switch_callback, 
+    # define the subscriber for reading the status of laser config from modbus registers
+    sub_laser_status = rospy.Subscriber(sub_topic, HoldingRegister,
+                                        callback=laser_status_callback, 
                                         callback_args=[pub_laser_config, laser_config], 
                                         queue_size=1, 
                                         tcp_nodelay=True)
     
-    # TODO: Bugs: no rospy.spinOnce for controlling the frequency of receiving msgs from master_hfd to match PLC server rate, so set the quene_size of publisher/subscriber as 1 to discard the redundant msgs.
+    # TODO: Bugs: no rospy.spinOnce for controlling the frequency of receiving msgs from master_hfd to match PLC server rate, so set the queue_size of publisher/subscriber as 1 to discard the redundant msgs.
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()
     
