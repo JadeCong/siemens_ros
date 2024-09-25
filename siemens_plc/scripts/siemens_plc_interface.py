@@ -33,8 +33,8 @@ def laser_status_callback(msg, args):
     global ready_flag, powder_feed_start, blow_gas_start, emit_laser_start, laser_power, powder_feed_rate
     
     # get the laser_status msgs and update the laser_config array
-    rospy.loginfo("Modbus server registers have been updated: %s", str(msg.data))
-    # args[1].data = [np.int32(ready_flag), np.int32(powder_feed_start), np.int32(blow_gas_start), np.int32(emit_laser_start), np.int32(laser_power), np.int32(powder_feed_rate)]
+    rospy.loginfo("Laser status from modbus server: %s", str(msg.data))
+    args[1].data = [np.int32(ready_flag), np.int32(powder_feed_start), np.int32(blow_gas_start), np.int32(emit_laser_start), np.int32(laser_power), np.int32(powder_feed_rate)]
     
     # publish the laser config parameters
     # args[0].publish(args[1])
@@ -70,18 +70,18 @@ def siemens_plc_interface_node():
                                         tcp_nodelay=True,
                                         latch=False)
     laser_config = HoldingRegister()
-    while True:
-        temp = plc_client.readRegisters(40001, 5)
-        rospy.loginfo(temp)
-        rospy.sleep(0.5)
-        rospy.loginfo("Done")
     
     # define the subscriber for reading the status of laser config from modbus registers
-    # sub_laser_status = rospy.Subscriber(sub_topic, HoldingRegister,
-    #                                     callback=laser_status_callback, 
-    #                                     callback_args=[pub_laser_config, laser_config], 
-    #                                     queue_size=1, 
-    #                                     tcp_nodelay=True)
+    sub_laser_status = rospy.Subscriber(sub_topic, HoldingRegister,
+                                        callback=laser_status_callback, 
+                                        callback_args=[pub_laser_config, laser_config], 
+                                        queue_size=1, 
+                                        tcp_nodelay=True)
+    # TODO: test for communication with modbus server
+    while not rospy.is_shutdown():
+        msg = plc_client.readRegisters(40001, 5)
+        rospy.loginfo(str(msg))
+        rospy.sleep(1)
     
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()
