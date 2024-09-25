@@ -74,6 +74,7 @@ def siemens_plc_interface_node():
     laser_config.data = [1,2,3,4,5]
     pub_laser_config.publish(laser_config)
     rospy.sleep(5)
+    rospy.loginfo("Done")
     
     # define the subscriber for reading the status of laser config from modbus registers
     # sub_laser_status = rospy.Subscriber(sub_topic, HoldingRegister,
