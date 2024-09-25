@@ -8,6 +8,6 @@ siemens_plc_interface:
   # Whether reset the Siemens PLC client.
   reset_registers: True
   # Topic for subscribing msgs from Siemens PLC server.
-  sub_topic: modbus_wrapper/input
+  sub_topic: modbus_wrapper/output
   # Topic for publishing msgs to Siemens PLC server.
-  pub_topic: modbus_wrapper/output
+  pub_topic: modbus_wrapper/input

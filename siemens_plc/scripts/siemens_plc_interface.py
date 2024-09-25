@@ -71,13 +71,16 @@ def siemens_plc_interface_node():
                                         tcp_nodelay=True,
                                         latch=False)
     laser_config = HoldingRegister()
+    laser_config.data = [1,2,3,4,5]
+    pub_laser_config.publish(laser_config)
+    rospy.sleep(5)
     
     # define the subscriber for reading the status of laser config from modbus registers
-    sub_laser_status = rospy.Subscriber(sub_topic, HoldingRegister,
-                                        callback=laser_status_callback, 
-                                        callback_args=[pub_laser_config, laser_config], 
-                                        queue_size=1, 
-                                        tcp_nodelay=True)
+    # sub_laser_status = rospy.Subscriber(sub_topic, HoldingRegister,
+    #                                     callback=laser_status_callback, 
+    #                                     callback_args=[pub_laser_config, laser_config], 
+    #                                     queue_size=1, 
+    #                                     tcp_nodelay=True)
     
     # TODO: Bugs: no rospy.spinOnce for controlling the frequency of receiving msgs from master_hfd to match PLC server rate, so set the queue_size of publisher/subscriber as 1 to discard the redundant msgs.
     # spin() simply keeps python from exiting until this node is stopped
