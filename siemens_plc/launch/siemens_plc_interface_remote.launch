@@ -1,6 +1,6 @@
 <launch>
     
-    <group ns="siemens">
+    <group ns="teleoperation">
         <!-- Run siemens_plc_interface node -->
         <rosparam command="load" file="$(find siemens_plc)/config/siemens_plc_interface.yaml" />
         <node name="siemens_plc_interface" pkg="siemens_plc" type="siemens_plc_interface.py" output="screen" respawn="false" />

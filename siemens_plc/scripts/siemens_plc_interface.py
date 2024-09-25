@@ -50,12 +50,12 @@ def siemens_plc_interface_node():
     rospy.init_node("siemens_plc_interface", anonymous=True)
     
     # get ros parameters from parameter server
-    host = rospy.get_param("/siemens/siemens_plc_interface/host")
-    port = rospy.get_param("/siemens/siemens_plc_interface/port")
-    rate = rospy.get_param("/siemens/siemens_plc_interface/rate")
-    reset_registers = rospy.get_param("/siemens/siemens_plc_interface/reset_registers")
-    sub_topic = rospy.get_param("/siemens/siemens_plc_interface/sub_topic")
-    pub_topic = rospy.get_param("/siemens/siemens_plc_interface/pub_topic")
+    host = rospy.get_param("host")
+    port = rospy.get_param("port")
+    rate = rospy.get_param("rate")
+    reset_registers = rospy.get_param("reset_registers")
+    sub_topic = rospy.get_param("sub_topic")
+    pub_topic = rospy.get_param("pub_topic")
     
     # start the dynamic reconfigure parameter server
     dynamic_reconfigure_parameter_server = Server(laser_config_paramConfig, laser_config_param_callback)
@@ -84,8 +84,8 @@ def siemens_plc_interface_node():
     while not rospy.is_shutdown():
         msg = plc_client.readRegisters(40001, 4)
         rospy.loginfo(msg)
-        msg_unpack = struct.unpack("iiii", msg)
-        print(msg_unpack)
+        # msg_unpack = struct.unpack("iiii", msg)
+        # print(msg_unpack)
         rospy.sleep(1)
     
     # spin() simply keeps python from exiting until this node is stopped
