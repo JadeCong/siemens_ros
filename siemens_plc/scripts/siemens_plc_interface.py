@@ -2,6 +2,8 @@
 
 import sys, os, time
 import numpy as np
+import struct
+import math
 
 import rospy
 from dynamic_reconfigure.server import Server
@@ -81,6 +83,8 @@ def siemens_plc_interface_node():
     while not rospy.is_shutdown():
         msg = plc_client.readRegisters(40001, 5)
         rospy.loginfo(str(msg))
+        msg_unpack = struct.unpack_from("!5I", msg)
+        print(msg_unpack)
         rospy.sleep(1)
     
     # spin() simply keeps python from exiting until this node is stopped
