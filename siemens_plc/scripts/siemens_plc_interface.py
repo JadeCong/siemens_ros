@@ -34,8 +34,7 @@ def laser_status_callback(msg, args):
     global ready_flag, powder_feed_start, blow_gas_start, emit_laser_start, laser_power, powder_feed_rate
     
     # get the laser_status msgs and update the laser_config array
-    print(msg.data)
-    # rospy.loginfo(msg.data)
+    rospy.loginfo("Modbus server registers have been updated: %s", str(msg.data))
     # args[1].data = [np.int32(ready_flag), np.int32(powder_feed_start), np.int32(blow_gas_start), np.int32(emit_laser_start), np.int32(laser_power), np.int32(powder_feed_rate)]
     
     # publish the laser config parameters
