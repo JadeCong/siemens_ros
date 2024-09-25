@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 import sys, os, time
 import numpy as np
@@ -81,9 +82,9 @@ def siemens_plc_interface_node():
                                         tcp_nodelay=True)
     # TODO: test for communication with modbus server
     while not rospy.is_shutdown():
-        msg = plc_client.readRegisters(40001, 5)
-        rospy.loginfo(str(msg))
-        msg_unpack = struct.unpack_from("!5I", msg)
+        msg = plc_client.readRegisters(40001, 4)
+        rospy.loginfo(msg)
+        msg_unpack = struct.unpack("iiii", msg)
         print(msg_unpack)
         rospy.sleep(1)
     
