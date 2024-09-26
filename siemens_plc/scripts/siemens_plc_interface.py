@@ -82,13 +82,13 @@ def siemens_plc_interface_node():
                                         tcp_nodelay=True)
     # TODO: test for communication with modbus server
     while not rospy.is_shutdown():
-        read_msg = plc_client.readRegisters(40004, 1)
+        read_msg = plc_client.readRegisters(40006, 7)
         rospy.loginfo("Read msg: %s", read_msg)
-        write_msg = 56
+        # write_msg = 56
         # plc_client.setOutput(40104, write_msg, 0.5)
-        plc_client.client.write_registers(40104, [write_msg], 0.5)
-        rospy.loginfo("Write msg: %s", write_msg)
-        rospy.sleep(1)
+        # plc_client.client.write_registers(40104, [write_msg], 0.5)
+        # rospy.loginfo("Write msg: %s", write_msg)
+        rospy.sleep(0.05)
     
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()
