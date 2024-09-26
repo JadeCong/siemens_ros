@@ -37,10 +37,10 @@ def laser_status_callback(msg, args):
     
     # get the laser_status msgs and update the laser_config array
     rospy.loginfo("Laser status from modbus server: %s", str(msg.data))
-    args[1].data = [np.int32(ready_flag), np.int32(powder_feed_start), np.int32(blow_gas_start), np.int32(emit_laser_start), np.int32(laser_power), np.int32(powder_feed_rate)]
+    args[1].data = [0, np.int32(ready_flag), np.int32(powder_feed_start), np.int32(blow_gas_start), np.int32(emit_laser_start), np.int32(laser_power), np.int32(powder_feed_rate)]
     
     # publish the laser config parameters
-    # args[0].publish(args[1])
+    args[0].publish(args[1])
 
 def siemens_plc_interface_node():
     # declare the global variables
