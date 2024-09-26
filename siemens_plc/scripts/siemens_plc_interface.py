@@ -37,6 +37,7 @@ def laser_status_callback(msg, args):
     
     # get the laser_status msgs and update the laser_config array
     rospy.loginfo("Read laser status from modbus server: %s", str(msg.data))
+    args[2].update_configuration({"heart_beat": str(msg.data[0])})
     args[1].data = [msg.data[0], ready_flag, powder_feed_start, blow_gas_start, emit_laser_start, laser_power, powder_feed_rate]
     
     # publish the laser config parameters
@@ -77,7 +78,7 @@ def siemens_plc_interface_node():
     # define the subscriber for reading the status of laser config from modbus registers
     sub_laser_status = rospy.Subscriber(pub_topic, HoldingRegister,
                                         callback=laser_status_callback,
-                                        callback_args=[pub_laser_config, laser_config],
+                                        callback_args=[pub_laser_config, laser_config, dynamic_reconfigure_parameter_server],
                                         queue_size=1,
                                         tcp_nodelay=True)
     
