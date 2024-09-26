@@ -69,7 +69,7 @@ def siemens_plc_interface_node():
     
     # define the publisher for writing the laser config parameters to modbus registers
     pub_laser_config = rospy.Publisher(sub_topic, HoldingRegister,
-                                        queue_size=1,
+                                        queue_size=10,
                                         tcp_nodelay=True,
                                         latch=False)
     laser_config = HoldingRegister()
@@ -78,7 +78,7 @@ def siemens_plc_interface_node():
     sub_laser_status = rospy.Subscriber(pub_topic, HoldingRegister,
                                         callback=laser_status_callback, 
                                         callback_args=[pub_laser_config, laser_config], 
-                                        queue_size=1, 
+                                        queue_size=10, 
                                         tcp_nodelay=True)
     # TODO: test for communication with modbus server
     # while not rospy.is_shutdown():
