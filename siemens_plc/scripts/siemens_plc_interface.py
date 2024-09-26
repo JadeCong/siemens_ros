@@ -36,7 +36,6 @@ def laser_status_callback(msg, args):
     global ready_flag, powder_feed_start, blow_gas_start, emit_laser_start, laser_power, powder_feed_rate
     
     # get the laser_status msgs and update the laser_config array
-    rospy.loginfo("Read laser status from modbus server: %s", str(msg.data))
     args[2].update_configuration({"heart_beat": str(msg.data[0])})
     args[1].data = [msg.data[0], ready_flag, powder_feed_start, blow_gas_start, emit_laser_start, laser_power, powder_feed_rate]
     
