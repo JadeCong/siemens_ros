@@ -73,25 +73,22 @@ def siemens_plc_interface_node():
                                         tcp_nodelay=True,
                                         latch=False)
     laser_config = HoldingRegister()
+    while not rospy.is_shutdown():
+        # read_msg = plc_client.readRegisters(0, 7)
+        # rospy.loginfo("Read msg: %s", read_msg)
+        laser_config.data = [5, np.int32(ready_flag), np.int32(powder_feed_start), np.int32(blow_gas_start), np.int32(emit_laser_start), np.int32(laser_power), np.int32(powder_feed_rate)]
+        pub_laser_config.publish(laser_config)
+        rospy.sleep(0.02)
     
     # define the subscriber for reading the status of laser config from modbus registers
-    sub_laser_status = rospy.Subscriber(pub_topic, HoldingRegister,
-                                        callback=laser_status_callback, 
-                                        callback_args=[pub_laser_config, laser_config], 
-                                        queue_size=1, 
-                                        tcp_nodelay=True)
-    # TODO: test for communication with modbus server
-    while not rospy.is_shutdown():
-        read_msg = plc_client.readRegisters(0, 7)
-        rospy.loginfo("Read msg: %s", read_msg)
-    #     write_msg = 56
-    #     plc_client.setOutput(40104, write_msg, 0.5)
-    #     plc_client.client.write_registers(40104, [write_msg], 0.5)
-    #     rospy.loginfo("Write msg: %s", write_msg)
-        rospy.sleep(0.05)
+    # sub_laser_status = rospy.Subscriber(pub_topic, HoldingRegister,
+    #                                     callback=laser_status_callback,
+    #                                     callback_args=[pub_laser_config, laser_config],
+    #                                     queue_size=1,
+    #                                     tcp_nodelay=True)
     
     # spin() simply keeps python from exiting until this node is stopped
-    rospy.spin()
+    # rospy.spin()
     
     # stop the listener on the modbus and close connection
     plc_client.stopListening()
