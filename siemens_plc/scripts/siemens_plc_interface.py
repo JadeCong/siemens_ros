@@ -76,7 +76,9 @@ def siemens_plc_interface_node():
     while not rospy.is_shutdown():
         # read_msg = plc_client.readRegisters(0, 7)
         # rospy.loginfo("Read msg: %s", read_msg)
-        laser_config.data = [5, np.int32(ready_flag), np.int32(powder_feed_start), np.int32(blow_gas_start), np.int32(emit_laser_start), np.int32(laser_power), np.int32(powder_feed_rate)]
+        # laser_config.data = [5, np.int32(ready_flag), np.int32(powder_feed_start), np.int32(blow_gas_start), np.int32(emit_laser_start), np.int32(laser_power), np.int32(powder_feed_rate)]
+        laser_config.data = [1,2,3,4,5,6,7]
+        rospy.loginfo("Read msg: %s", laser_config.data)
         pub_laser_config.publish(laser_config)
         rospy.sleep(0.02)
     
