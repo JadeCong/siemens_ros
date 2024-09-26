@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+# -- coding: utf-8 --
 
 import sys, os, time
 import numpy as np
@@ -85,7 +85,8 @@ def siemens_plc_interface_node():
         read_msg = plc_client.readRegisters(40004, 1)
         rospy.loginfo("Read msg: %s", read_msg)
         write_msg = 56
-        plc_client.setOutput(40104, write_msg, 0.5)
+        # plc_client.setOutput(40104, write_msg, 0.5)
+        plc_client.client.write_registers(40104, [write_msg], 0.5)
         rospy.loginfo("Write msg: %s", write_msg)
         rospy.sleep(1)
     
