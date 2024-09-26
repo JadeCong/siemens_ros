@@ -1,7 +1,7 @@
 from modbus.modbus_wrapper_client import ModbusWrapperClient
 
 
-NUM_REGISTERS = 100
+NUM_REGISTERS = 7
 ADDRESS_READ_START = 40001
 ADDRESS_WRITE_START = 40101
 

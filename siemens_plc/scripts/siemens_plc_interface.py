@@ -84,11 +84,11 @@ def siemens_plc_interface_node():
     # while not rospy.is_shutdown():
     #     read_msg = plc_client.readRegisters(0, 7)
     #     rospy.loginfo("Read msg: %s", read_msg)
-        # write_msg = 56
-        # plc_client.setOutput(40104, write_msg, 0.5)
-        # plc_client.client.write_registers(40104, [write_msg], 0.5)
-        # rospy.loginfo("Write msg: %s", write_msg)
-        # rospy.sleep(0.05)
+    #     write_msg = 56
+    #     plc_client.setOutput(40104, write_msg, 0.5)
+    #     plc_client.client.write_registers(40104, [write_msg], 0.5)
+    #     rospy.loginfo("Write msg: %s", write_msg)
+    #     rospy.sleep(0.05)
     
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()
