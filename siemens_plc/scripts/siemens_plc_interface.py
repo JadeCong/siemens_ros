@@ -68,27 +68,27 @@ def siemens_plc_interface_node():
     rospy.loginfo("Modbus listener started.")
     
     # define the publisher for writing the laser config parameters to modbus registers
-    pub_laser_config = rospy.Publisher(pub_topic, HoldingRegister,
+    pub_laser_config = rospy.Publisher(sub_topic, HoldingRegister,
                                         queue_size=1,
                                         tcp_nodelay=True,
                                         latch=False)
     laser_config = HoldingRegister()
     
     # define the subscriber for reading the status of laser config from modbus registers
-    sub_laser_status = rospy.Subscriber(sub_topic, HoldingRegister,
+    sub_laser_status = rospy.Subscriber(pub_topic, HoldingRegister,
                                         callback=laser_status_callback, 
                                         callback_args=[pub_laser_config, laser_config], 
                                         queue_size=1, 
                                         tcp_nodelay=True)
     # TODO: test for communication with modbus server
-    while not rospy.is_shutdown():
-        read_msg = plc_client.readRegisters(40006, 7)
-        rospy.loginfo("Read msg: %s", read_msg)
+    # while not rospy.is_shutdown():
+    #     read_msg = plc_client.readRegisters(0, 7)
+    #     rospy.loginfo("Read msg: %s", read_msg)
         # write_msg = 56
         # plc_client.setOutput(40104, write_msg, 0.5)
         # plc_client.client.write_registers(40104, [write_msg], 0.5)
         # rospy.loginfo("Write msg: %s", write_msg)
-        rospy.sleep(0.05)
+        # rospy.sleep(0.05)
     
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()
