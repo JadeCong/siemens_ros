@@ -37,7 +37,7 @@ def laser_status_callback(msg, args):
     
     # get the laser_status msgs and update the laser_config array
     rospy.loginfo("Laser status from modbus server: %s", str(msg.data))
-    args[1].data = [26, np.int32(ready_flag), np.int32(powder_feed_start), np.int32(blow_gas_start), np.int32(emit_laser_start), np.int32(laser_power), np.int32(powder_feed_rate)]
+    args[1].data = [msg.data[0], np.int32(ready_flag), np.int32(powder_feed_start), np.int32(blow_gas_start), np.int32(emit_laser_start), np.int32(laser_power), np.int32(powder_feed_rate)]
     
     # publish the laser config parameters
     args[0].publish(args[1])
@@ -73,15 +73,6 @@ def siemens_plc_interface_node():
                                         tcp_nodelay=True,
                                         latch=False)
     laser_config = HoldingRegister()
-    # while not rospy.is_shutdown():
-    #     # read_msg = plc_client.readRegisters(0, 7)
-    #     # rospy.loginfo("Read msg: %s", read_msg)
-    #     # laser_config.data = [5, np.int32(ready_flag), np.int32(powder_feed_start), np.int32(blow_gas_start), np.int32(emit_laser_start), np.int32(laser_power), np.int32(powder_feed_rate)]
-    #     laser_config.data = [1,2,3,4,5,6,7]
-    #     rospy.loginfo("Write msg: %s", laser_config.data)
-    #     pub_laser_config.publish(laser_config)
-    #     # plc_client.setOutput(0, 56)
-    #     rospy.sleep(0.02)
     
     # define the subscriber for reading the status of laser config from modbus registers
     sub_laser_status = rospy.Subscriber(pub_topic, HoldingRegister,
