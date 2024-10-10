@@ -59,6 +59,7 @@ def siemens_plc_interface_node():
     rospy.init_node("siemens_plc_interface", anonymous=True)
     
     # get ros parameters from parameter server
+    topic_hfd_command = rospy.get_param("~topic_hfd_command")
     host = rospy.get_param("~host")
     port = rospy.get_param("~port")
     rate = rospy.get_param("~rate")
@@ -84,7 +85,7 @@ def siemens_plc_interface_node():
     laser_config = HoldingRegister()
     
     # define the subscriber for receiving the emit_laser_flag msgs from master_hfd node
-    sub_emit_laser_flag = rospy.Subscriber(sub_topic, HFDCommand,
+    sub_emit_laser_flag = rospy.Subscriber(topic_hfd_command, HFDCommand,
                                             callback=laser_emit_callback,
                                             callback_args=[dynamic_reconfigure_parameter_server],
                                             queue_size=1,

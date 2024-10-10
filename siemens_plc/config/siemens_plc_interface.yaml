@@ -1,4 +1,7 @@
 siemens_plc_interface:
+  # Topic for subscribing msgs from Master HFD.
+  topic_hfd_command: /hfd/master_hfd/hfd_command
+  
   # Host of Siemens PLC server.
   host: 192.168.58.20
   # Port of Siemens PLC server.
