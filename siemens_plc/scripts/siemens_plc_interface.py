@@ -11,6 +11,7 @@ from dynamic_reconfigure.server import Server
 from siemens_plc.cfg import laser_config_paramConfig
 from siemens_plc.siemens_plc_client import SiemensPlcClient
 from std_msgs.msg import Int32MultiArray as HoldingRegister
+from hfd_msgs.msg import HFDCommand
 
 
 # define the laser config parameters
@@ -30,6 +31,14 @@ def laser_config_param_callback(config, level):
     powder_feed_rate = config.powder_feed_rate
     
     return config
+
+def laser_emit_callback(msg, args):
+    # declare the global variables
+    global emit_laser_start
+    
+    # get the emit_laser_flag msgs and update the emit_laser_start
+    args[0].update_configuration({"emit_laser_start": msg.emit_laser_flag.data})
+    emit_laser_start = msg.emit_laser_flag.data
 
 def laser_status_callback(msg, args):
     # declare the global variables
@@ -73,6 +82,13 @@ def siemens_plc_interface_node():
                                         tcp_nodelay=True,
                                         latch=False)
     laser_config = HoldingRegister()
+    
+    # define the subscriber for receiving the emit_laser_flag msgs from master_hfd node
+    sub_emit_laser_flag = rospy.Subscriber(sub_topic, HFDCommand,
+                                            callback=laser_emit_callback,
+                                            callback_args=[dynamic_reconfigure_parameter_server],
+                                            queue_size=1,
+                                            tcp_nodelay=True)
     
     # define the subscriber for reading the status of laser config from modbus registers
     sub_laser_status = rospy.Subscriber(pub_topic, HoldingRegister,

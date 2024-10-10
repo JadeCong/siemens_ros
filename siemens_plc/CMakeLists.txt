@@ -10,6 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   modbus
+  hfd_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -107,7 +108,7 @@ generate_dynamic_reconfigure_options(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES siemens_plc
-#  CATKIN_DEPENDS
+    CATKIN_DEPENDS hfd_msgs
 #    dynamic_reconfigure
 #    roscpp
 #    rospy
